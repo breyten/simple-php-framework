@@ -1,7 +1,4 @@
 <?PHP
-    function __($msg) {
-      return 
-    }
     function printr($var)
     {
         $output = print_r($var, true);
