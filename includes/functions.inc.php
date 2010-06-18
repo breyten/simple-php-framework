@@ -1,4 +1,7 @@
 <?PHP
+    function __($msg) {
+      return 
+    }
     function printr($var)
     {
         $output = print_r($var, true);
@@ -46,22 +49,22 @@
 
         $diff = time() - $ts;
         if($diff == 0)
-            return 'now';
+            return gettext('now');
         elseif($diff > 0)
         {
             $day_diff = floor($diff / 86400);
             if($day_diff == 0)
             {
-                if($diff < 60) return 'just now';
-                if($diff < 120) return '1 minute ago';
-                if($diff < 3600) return floor($diff / 60) . ' minutes ago';
-                if($diff < 7200) return '1 hour ago';
-                if($diff < 86400) return floor($diff / 3600) . ' hours ago';
+                if($diff < 60) return gettext('just now');
+                if($diff < 120) return gettext('1 minute ago');
+                if($diff < 3600) return sprintf(gettext('%d minutes ago'), floor($diff / 60));
+                if($diff < 7200) return gettext('1 hour ago');
+                if($diff < 86400) return sprintf(gettext('%d hours ago'), floor($diff / 3600));
             }
-            if($day_diff == 1) return 'Yesterday';
-            if($day_diff < 7) return $day_diff . ' days ago';
-            if($day_diff < 31) return ceil($day_diff / 7) . ' weeks ago';
-            if($day_diff < 60) return 'last month';
+            if($day_diff == 1) return gettext('yesterday');
+            if($day_diff < 7) return sprintf(gettext('%d days ago'), $day_diff);
+            if($day_diff < 31) return sprintf(gettext('%d weeks ago'), ceil($day_diff / 7));
+            if($day_diff < 60) return gettext('last month');
             return date('F Y', $ts);
         }
         else
@@ -70,16 +73,16 @@
             $day_diff = floor($diff / 86400);
             if($day_diff == 0)
             {
-                if($diff < 120) return 'in a minute';
-                if($diff < 3600) return 'in ' . floor($diff / 60) . ' minutes';
-                if($diff < 7200) return 'in an hour';
-                if($diff < 86400) return 'in ' . floor($diff / 3600) . ' hours';
+                if($diff < 120) return gettext('in a minute');
+                if($diff < 3600) return sprintf(gettext('in %s minutes'), floor($diff / 60));
+                if($diff < 7200) return gettext('in an hour');
+                if($diff < 86400) return sprintf(gettext('in %d hours'), floor($diff / 3600));
             }
-            if($day_diff == 1) return 'Tomorrow';
+            if($day_diff == 1) return gettext('tomorrow');
             if($day_diff < 4) return date('l', $ts);
-            if($day_diff < 7 + (7 - date('w'))) return 'next week';
-            if(ceil($day_diff / 7) < 4) return 'in ' . ceil($day_diff / 7) . ' weeks';
-            if(date('n', $ts) == date('n') + 1) return 'next month';
+            if($day_diff < 7 + (7 - date('w'))) return gettext('next week');
+            if(ceil($day_diff / 7) < 4) return sprintf(gettext('in %d weeks'), ceil($day_diff / 7));
+            if(date('n', $ts) == date('n') + 1) return gettext('next month');
             return date('F Y', $ts);
         }
     }
